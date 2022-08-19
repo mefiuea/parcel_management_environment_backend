@@ -25,7 +25,7 @@ class ParcelShelf(models.Model):
     name = models.CharField(max_length=100, blank=False)
     creation_date = models.DateTimeField(auto_now_add=True)
     last_modification = models.DateTimeField(auto_now=True)
-    parcels = models.ManyToManyField('Parcel', blank=True, null=True, related_name='shelf_parcel')
+    parcels = models.ManyToManyField('Parcel', blank=True, related_name='shelf_parcel')
 
     def __str__(self):
         return f'ParcelShelf: {self.owner}, {self.name}'
