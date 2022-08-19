@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxLengthValidator, RegexValidator
+from django.core.exceptions import ValidationError
 
 # validators
-package_size_validator = RegexValidator(regex=r'(\d+(,\d+)?)x(\d+(,\d+)?)x(\d+(,\d+)?)')
+package_size_validator = RegexValidator(regex=r'(\d+(,\d+)?)x(\d+(,\d+)?)x(\d+(,\d+)?)',
+                                        message='Correct value: A,AxB,BxC,C')
 
 
 class Parcel(models.Model):
