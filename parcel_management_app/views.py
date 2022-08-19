@@ -7,4 +7,3 @@ from .serializers import ParcelSerializer
 class ParcelList(generics.ListCreateAPIView):
     queryset = Parcel.objects.all()
     serializer_class = ParcelSerializer
-
