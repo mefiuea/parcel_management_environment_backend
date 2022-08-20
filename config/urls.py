@@ -20,8 +20,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/v1/', include('parcel_management_app.urls')),
     #  registration users
-    path('api-auth/', include('rest_framework.urls')),
-    # path('rest-auth/', include('rest_auth.urls')),
-    # path('api/v1/dj-rest-auth/registration/',  # new
-    #      include('rest_auth.registration.urls')),
+    path('api/v1/api-auth/', include('rest_framework.urls')),
+    path('api/v1/dj-rest-auth/', include('dj_rest_auth.urls')),
+    # path('api/v1/dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
 ]
