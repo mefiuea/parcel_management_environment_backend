@@ -40,8 +40,8 @@ INSTALLED_APPS = [
 
     # 3-rd party
     'rest_framework',
-    'allauth',
-    'allauth.account',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
     'dj_rest_auth.registration',
 
     # local
