@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     # 3-rd party
     'rest_framework',
     'rest_framework.authtoken',
-    'dj_rest_auth',
-    'dj_rest_auth.registration',
+    'allauth',
+    'allauth.account',
+    'rest_auth',
+    'rest_auth.registration',
 
     # local
     'users_app.apps.UsersAppConfig',
