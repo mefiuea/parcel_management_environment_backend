@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import generics
-from .models import Parcel
-from .serializers import ParcelSerializer
+from .models import Parcel, ParcelShelf
+from .serializers import ParcelSerializer, ParcelShelfSerializer
 
 
 class ParcelsList(generics.ListCreateAPIView):
@@ -19,3 +19,13 @@ class ParcelDetail(generics.RetrieveUpdateDestroyAPIView):
     #     user = self.request.user
     #     print('USER: ', user, flush=True)
     #     return Parcel.objects.filter(owner=user)
+
+
+class ParcelsShelfList(generics.ListCreateAPIView):
+    queryset = ParcelShelf.objects.all()
+    serializer_class = ParcelShelfSerializer
+
+
+class ParcelShelfDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ParcelShelf.objects.all()
+    serializer_class = ParcelShelfSerializer

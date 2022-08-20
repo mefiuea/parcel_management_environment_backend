@@ -20,7 +20,7 @@ class Parcel(models.Model):
     code = models.PositiveIntegerField(unique=True, blank=False)
 
     def __str__(self):
-        return f'Parcel: {self.owner}, {self.name}'
+        return f'Parcel: {self.code}, {self.owner}, {self.name}'
 
 
 class ParcelShelf(models.Model):
