@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # local
     'users_app.apps.UsersAppConfig',
     'parcel_management_app.apps.ParcelManagementAppConfig',
+    'general_app.apps.GeneralAppConfig',
 ]
 
 MIDDLEWARE = [

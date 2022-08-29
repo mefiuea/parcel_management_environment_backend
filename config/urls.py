@@ -29,4 +29,6 @@ urlpatterns = [
     # path('api/v1/account/', include('allauth.urls')),
     # path('api/v1/dj-rest-auth/account-confirm-email/', VerifyEmailView.as_view(),
     #      name='account_email_verification_sent'),
+    # index
+    path('', include('general_app.urls')),
 ]
