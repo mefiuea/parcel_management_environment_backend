@@ -164,6 +164,7 @@ ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
 
 LOGIN_URL = 'http://localhost:8000/api/v1/dj-rest-auth/login/'
+# LOGIN_REDIRECT_URL = 'http://localhost:8000/api/v1/dj-rest-auth/login/'
 
 AUTHENTICATION_BACKENDS = [
     # allauth specific authentication methods, such as login by e-mail
