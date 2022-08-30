@@ -17,7 +17,7 @@ class Parcel(models.Model):
     contact = models.CharField(max_length=50, blank=True)
     creation_date = models.DateTimeField(auto_now_add=True)
     last_modification = models.DateTimeField(auto_now=True)
-    code = models.PositiveIntegerField(unique=True, blank=False)
+    code = models.CharField(max_length=30, unique=True, blank=False)
 
     def __str__(self):
         return f'Parcel: {self.code}, {self.owner}, {self.name}'
