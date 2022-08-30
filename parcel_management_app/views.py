@@ -1,11 +1,12 @@
 from datetime import datetime
 from random import randint
 
+from rest_framework.views import APIView
+
 from django.contrib.auth import get_user_model
 from rest_framework import generics, permissions
 from .models import Parcel, ParcelShelf
 from .serializers import ParcelSerializer, ParcelShelfSerializer
-from .permissions import IsAuthorOrReadOnly, NoAdminUser
 
 
 def code_generator(user):
@@ -23,10 +24,15 @@ def code_generator(user):
 
 
 class ParcelsList(generics.ListCreateAPIView):
-    # permission_classes = (permissions.IsAdminUser, NoAdminUser)
-    permission_classes = (NoAdminUser,)
-    queryset = Parcel.objects.all()
+    # queryset = Parcel.objects.all()
     serializer_class = ParcelSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        if bool(user and user.is_staff and user.is_admin):
+            return Parcel.objects.all()
+        else:
+            return Parcel.objects.filter(owner=user)
 
     def perform_create(self, serializer):
         code = code_generator(user=self.request.user.id)
@@ -34,8 +40,6 @@ class ParcelsList(generics.ListCreateAPIView):
 
 
 class ParcelDetail(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = (permissions.DjangoObjectPermissions,)
-    permission_classes = (NoAdminUser,)
     queryset = Parcel.objects.all()
     serializer_class = ParcelSerializer
 
@@ -48,8 +52,18 @@ class ParcelDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ParcelsShelfList(generics.ListCreateAPIView):
-    queryset = ParcelShelf.objects.all()
+    # queryset = ParcelShelf.objects.all()
     serializer_class = ParcelShelfSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        if bool(user and user.is_staff and user.is_admin):
+            return ParcelShelf.objects.all()
+        else:
+            return ParcelShelf.objects.filter(owner=user)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class ParcelShelfDetail(generics.RetrieveUpdateDestroyAPIView):
