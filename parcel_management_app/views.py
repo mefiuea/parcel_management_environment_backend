@@ -4,6 +4,7 @@ from random import randint
 from rest_framework import generics
 from .models import Parcel, ParcelShelf
 from .serializers import ParcelSerializer, ParcelShelfSerializer
+from .permissions import IsAdminOrRegularUser
 
 
 def code_generator(user):
@@ -40,6 +41,7 @@ class ParcelDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Parcel.objects.all()
     serializer_class = ParcelSerializer
     lookup_field = 'code'
+    permission_classes = (IsAdminOrRegularUser,)
 
 
 class ParcelsShelfList(generics.ListCreateAPIView):

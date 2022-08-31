@@ -1,24 +1,12 @@
 from rest_framework import permissions
 
 
-class IsAuthorOrReadOnly(permissions.BasePermission):
+class IsAdminOrRegularUser(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
-        # Read-only permissions are allowed for any request
-        print('SAFE METHODS: ', permissions.SAFE_METHODS, flush=True)
-        if request.method in permissions.SAFE_METHODS:
+        # Write and read permissions for all parcels are allowed to admin
+        # For no admin user write and read permissions are allowed only if user is creator of object
+        if bool(request.user and request.user.is_staff and request.user.is_admin):
             return True
-
-        # Write permissions are only allowed to the author of a post
-        return obj.author == request.user
-
-
-class NoAdminUser(permissions.BasePermission):
-    """
-    No admin user can see only own objects and add new objects.
-    """
-
-    # def has_permission(self, request, view):
-
-    def has_object_permission(self, request, view, obj):
-        return obj.owner == request.user
+        else:
+            return obj.owner == request.user
