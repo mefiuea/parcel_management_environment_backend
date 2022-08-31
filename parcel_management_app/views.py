@@ -63,3 +63,4 @@ class ParcelsShelfList(generics.ListCreateAPIView):
 class ParcelShelfDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ParcelShelf.objects.all()
     serializer_class = ParcelShelfSerializer
+    permission_classes = (IsAdminOrRegularUser,)
