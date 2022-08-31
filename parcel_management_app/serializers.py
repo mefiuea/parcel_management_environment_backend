@@ -14,13 +14,31 @@ class ParcelSerializer(serializers.ModelSerializer):
                   'last_modification')
 
 
+def hyperlinked_related_field_by_owner(model, view_name, owner):
+    return serializers.HyperlinkedRelatedField(
+        many=True,
+        view_name=view_name,
+        queryset=model.objects.filter(owner=owner)
+    )
+
+
 class ParcelShelfSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.email')
 
-    parcels = serializers.HyperlinkedRelatedField(many=True, read_only=False, view_name='parcels_detail_view',
+    parcels = serializers.HyperlinkedRelatedField(many=True,
+                                                  read_only=False,
+                                                  view_name='parcels_detail_view',
                                                   # queryset=Parcel.objects.filter(owner=17)
                                                   queryset=Parcel.objects.all()
                                                   )
+
+    def get_fields(self):
+        fields = super().get_fields()
+
+        owner = self.context['request'].user
+        fields['parcels'] = hyperlinked_related_field_by_owner(Parcel, 'parcels_detail_view', owner)
+
+        return fields
 
     class Meta:
         model = ParcelShelf
