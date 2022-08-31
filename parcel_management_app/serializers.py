@@ -1,6 +1,4 @@
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from rest_framework.fields import CurrentUserDefault
 from .models import Parcel, ParcelShelf
 
 
@@ -18,7 +16,8 @@ def hyperlinked_related_field_by_owner(model, view_name, owner):
     return serializers.HyperlinkedRelatedField(
         many=True,
         view_name=view_name,
-        queryset=model.objects.filter(owner=owner)
+        queryset=model.objects.filter(owner=owner),
+        lookup_field='code'
     )
 
 
@@ -28,7 +27,6 @@ class ParcelShelfSerializer(serializers.ModelSerializer):
     parcels = serializers.HyperlinkedRelatedField(many=True,
                                                   read_only=False,
                                                   view_name='parcels_detail_view',
-                                                  # queryset=Parcel.objects.filter(owner=17)
                                                   queryset=Parcel.objects.all()
                                                   )
 

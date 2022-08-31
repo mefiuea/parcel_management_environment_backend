@@ -1,10 +1,7 @@
 from datetime import datetime
 from random import randint
 
-from rest_framework.views import APIView
-
-from django.contrib.auth import get_user_model
-from rest_framework import generics, permissions
+from rest_framework import generics
 from .models import Parcel, ParcelShelf
 from .serializers import ParcelSerializer, ParcelShelfSerializer
 
@@ -42,18 +39,13 @@ class ParcelsList(generics.ListCreateAPIView):
 class ParcelDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Parcel.objects.all()
     serializer_class = ParcelSerializer
-
-    # def get_queryset(self):
-    #     self.lookup_field = 'pk'
-    #     print('LOOKUP_FIELD: ', self.lookup_field, flush=True)
-    #     user = self.request.user
-    #     print('USER: ', user, flush=True)
-    #     return Parcel.objects.filter(owner=user)
+    lookup_field = 'code'
 
 
 class ParcelsShelfList(generics.ListCreateAPIView):
     # queryset = ParcelShelf.objects.all()
     serializer_class = ParcelShelfSerializer
+    lookup_field = 'code'
 
     def get_queryset(self):
         user = self.request.user
