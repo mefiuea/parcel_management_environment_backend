@@ -162,11 +162,12 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 # ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/?verification=1'
-# ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/?verification=1'
+# ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:8000/api/v1/parcels/'
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
 
-LOGIN_URL = 'http://localhost:8000/api/v1/dj-rest-auth/login/'
+LOGIN_URL = 'http://127.0.0.1:5173/login'
+# LOGIN_URL = 'http://localhost:8000/api/v1/dj-rest-auth/login/'
 # LOGIN_REDIRECT_URL = 'http://localhost:8000/api/v1/dj-rest-auth/login/'
 
 AUTHENTICATION_BACKENDS = [
