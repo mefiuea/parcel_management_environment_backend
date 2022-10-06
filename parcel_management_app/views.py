@@ -24,6 +24,7 @@ def code_generator(user):
 class ParcelsList(generics.ListCreateAPIView):
     # queryset = Parcel.objects.all()
     serializer_class = ParcelSerializer
+    # lookup_field = 'code'
 
     def get_queryset(self):
         user = self.request.user
